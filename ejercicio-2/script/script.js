@@ -18,7 +18,6 @@ function pedirDatos(url){
 function usoDatos(d){
     contenedorBicis.innerHTML = '';
     d.forEach(e => {
-        console.log(e)
         const contenedorBici = document.createElement('div');
         contenedorBici.classList = 'bici';
         const imagen = document.createElement('img');
