@@ -1,0 +1,60 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.contenedor {
+    width: 40rem;
+    margin: auto;
+}
+
+.contenedor .busqueda {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e0e0e0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f8ff;
+    /* Light blueish background */
+    font-weight: normal;
+}
+
+/* Optional: styling for rows if needed later */
+tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
