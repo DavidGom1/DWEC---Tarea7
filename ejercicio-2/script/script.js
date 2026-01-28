@@ -4,7 +4,7 @@
 var consulta = new XMLHttpRequest();
 const contenedorBicis = document.getElementById('bicicletas');
 const selectCategoria = document.getElementById('selectCategoria');
-let urlBase = 'http://api.raulserranoweb.es/rest.php';
+let urlBase = 'https://api.raulserranoweb.es/rest.php';
 
 
 // CONSULTA Y PETICION
@@ -25,7 +25,7 @@ function usoDatos(d){
         const nombre = document.createElement('p');
         const desc = document.createElement('p');
         const cat = document.createElement('p');
-        imagen.src = 'http://api.raulserranoweb.es/imagenes_art/' + e.cod;
+        imagen.src = 'https://api.raulserranoweb.es/imagenes_art/' + e.cod;
         nombre.innerHTML = '<b>Nombre: </b>' + e.nom;
         desc.innerHTML = '<b>Descripción: </b>' + e.des;
         cat.innerHTML = '<b>Categoria: </b>' + e.cat;
