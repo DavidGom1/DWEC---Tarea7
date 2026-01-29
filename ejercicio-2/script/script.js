@@ -1,17 +1,20 @@
 /*
 *   VARIABLES Y OBJETOS DEL DOM
 */
-var consulta = new XMLHttpRequest();
 const contenedorBicis = document.getElementById('bicicletas');
 const selectCategoria = document.getElementById('selectCategoria');
-let urlBase = 'https://api.raulserranoweb.es/rest.php';
+const urlBase = 'https://api.raulserranoweb.es/rest.php';
+const urlImg = 'https://api.raulserranoweb.es/imagenes_art/';
 
 
 // CONSULTA Y PETICION
-function pedirDatos(url){
-    consulta.onreadystatechange = procesarRespuesta;
-    consulta.open('GET', url, true);
-    consulta.send(null);
+async function pedirDatos(url){ // funcion asincrona que podré llamar en cualquier momento
+    const response = await fetch(url); //
+
+    if(!response.ok) throw new Error('Error recibiendo datos');
+
+    const datos = await response.json();
+    return datos;
 }
 
 // USO DE DATOS
@@ -24,7 +27,7 @@ function usoDatos(d){
         const nombre = document.createElement('p');
         const desc = document.createElement('p');
         const cat = document.createElement('p');
-        imagen.src = 'https://api.raulserranoweb.es/imagenes_art/' + e.cod;
+        imagen.src = urlImg + e.cod;
         nombre.innerHTML = '<b>Nombre: </b>' + e.nom;
         desc.innerHTML = '<b>Descripción: </b>' + e.des;
         cat.innerHTML = '<b>Categoria: </b>' + e.cat;
@@ -45,9 +48,11 @@ function procesarRespuesta(){
 /*
 *   PROCESAMIENTO
 */
-pedirDatos(urlBase);
+(async () => {
+    usoDatos( await pedirDatos(urlBase) );
+})();
 
-selectCategoria.addEventListener('change', (e) => {
+selectCategoria.addEventListener('change', async (e) => {
     let cat = e.target.value;
-    pedirDatos(cat != 'Todas' ? urlBase + '?cat=' + cat : urlBase);
-});
+    usoDatos( await pedirDatos(cat != 'Todas' ? urlBase + '?cat=' + cat : urlBase));
+})
