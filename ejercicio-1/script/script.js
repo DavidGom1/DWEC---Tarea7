@@ -1,7 +1,7 @@
 /*
 *   VARIABLES Y OBJETOS DEL DOM
 */
-const url = 'https://jsonplaceholder.typicode.com/user';
+const url = 'https://jsonplaceholder.typicode.com/users';
 var consulta = new XMLHttpRequest();
 const cuerpoTabla = document.getElementById('cuerpoTabla');
 const botonBuscar = document.getElementById('btnBuscar');
@@ -13,43 +13,19 @@ let datos = [];
 function pedirDatos() {
     fetch(url)
         .then(response => {
-            console.log(response)
             if (response.status == 200) {
-                return response.text();
+                return response.json();
             } else {
                 throw "Respuesta incorrecta del servidor.";
             }
         })
-        .then(responseText => {
-            let users = JSON.parse(responseText).results;
-            console.log('Este es el objeto de usuarios', users);
+        .then(data => {
+            datos = data;
+            usoDatos(data);
         })
         .catch(err => {
             console.log(err);
         })
-}
-
-// USO DE DATOS
-function usoDatos(d) {
-    d.forEach(e => {
-        const datos = [e.name, e.address.street, e.address.city]
-        const filaTabla = document.createElement('tr');
-        for (i = 0; i < 3; i++) {
-            const celdaTabla = document.createElement('td');
-            celdaTabla.innerText = datos[i];
-            filaTabla.appendChild(celdaTabla);
-        }
-        cuerpoTabla.appendChild(filaTabla);
-
-    });
-}
-
-// PROCESAMIENTO DE RESPUESTA
-function procesarRespuesta() {
-    if (consulta.readyState == 4 && consulta.status == 200) {
-        data = JSON.parse(consulta.responseText);
-        usoDatos(data);
-    }
 }
 
 // USO DE DATOS
