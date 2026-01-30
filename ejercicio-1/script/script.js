@@ -6,7 +6,7 @@ var consulta = new XMLHttpRequest();
 const cuerpoTabla = document.getElementById('cuerpoTabla');
 const botonBuscar = document.getElementById('btnBuscar');
 const inputBuscar = document.getElementById('inputBuscar');
-let data = {};
+let datos = [];
 
 
 // CONSULTA Y PETICION
@@ -52,16 +52,29 @@ function procesarRespuesta() {
     }
 }
 
+// USO DE DATOS
+function usoDatos(d) {
+    d.forEach(e => {
+        cuerpoTabla.innerHTML += 
+        `<tr>
+            <td>${e.name}</td>
+            <td>${e.address.street}</td>
+            <td>${e.address.city}</td>
+        </tr>`;
+    });
+}
 
-/*
-*   PROCESAMIENTO
-*/
-pedirDatos();
+
+// PROCESAMIENTO
+(async () => {
+    const usuarios = await pedirDatos();
+    if(usuarios) usoDatos(usuarios);
+})();
 
 botonBuscar.addEventListener('click', (e) => {
     e.preventDefault();
     let texto = inputBuscar.value.trim();
-    let datosFiltrados = data.filter(e => e.name.toLowerCase().includes(texto.toLowerCase()));
+    let datosFiltrados = datos.filter(e => e.name.toLowerCase().includes(texto.toLowerCase()));
     cuerpoTabla.innerHTML = '';
     usoDatos(datosFiltrados);
 });
